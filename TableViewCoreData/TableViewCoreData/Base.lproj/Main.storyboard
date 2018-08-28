@@ -72,7 +72,7 @@
                                     <outlet property="IvCover" destination="Mgd-aq-WES" id="fJy-1F-cgx"/>
                                     <outlet property="lbConsole" destination="EV6-sy-FKe" id="tN8-tM-KiG"/>
                                     <outlet property="lbTitle" destination="qvm-xH-eTi" id="DYP-Ia-dgJ"/>
-                                    <segue destination="U8f-qp-Ru1" kind="show" id="9Pu-RV-Z5S"/>
+                                    <segue destination="U8f-qp-Ru1" kind="show" identifier="GameView" id="9Pu-RV-Z5S"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -377,6 +377,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="asu-yi-iSB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8R7-11-yo1">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

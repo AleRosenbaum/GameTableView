@@ -16,11 +16,15 @@ class GameViewController: UIViewController {
     @IBOutlet weak var lbReleaseDate: UILabel!
     @IBOutlet weak var ivCover: UIImageView!
     
-    
+    var game: Game!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        if (game != nil) {
+            lbTitle.text = game.title
+            lbConsole.text = game.console?.name
+//            lbReleaseDate = game.releaseDate
+        }
         // Do any additional setup after loading the view.
     }
     
