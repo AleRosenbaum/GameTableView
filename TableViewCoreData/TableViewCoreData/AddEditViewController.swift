@@ -29,7 +29,28 @@ class AddEditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if game != nil {
+            title = "Editar jogo"
+            btAddEdit.setTitle("Alterar", for: .normal)
+            tfTitle.text = game.title
+            if let console = game.console, let index = consolesManager.consoles.index(of: console){
+                tfConsole.text = console.name
+                pickerView.selectRow(index, inComponent: 0, animated: false)
+            }
+            ivCover.image = game.cover as? UIImage
+            if let releaseDate = game.releaseDate {
+                dpReleaseDAte.date = releaseDate
+            }
+            if game.cover != nil {
+                btCover.setTitle(nil, for: .normal)
+            }
+        }
+        prepareConsoleTextField()
         
+        
+    }
+    
+    func prepareConsoleTextField(){
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         toolbar.tintColor = UIColor(named: "main")
         
@@ -41,7 +62,6 @@ class AddEditViewController: UIViewController {
         
         tfConsole.inputView = pickerView
         tfConsole.inputAccessoryView = toolbar
-        // Do any additional setup after loading the view.
     }
     
     @objc func cancel() {
@@ -62,6 +82,33 @@ class AddEditViewController: UIViewController {
     }
     
     @IBAction func addEditCover(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Selecionar poster", message: "De onde você quer escolher o poster?", preferredStyle: .actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
+                self.selectPicture(sourceType: .camera)
+                })
+            alert.addAction(cameraAction)
+        }
+        let libraryAction = UIAlertAction(title: "Biblioteca de fotos", style: .default) { (action: UIAlertAction) in
+            self.selectPicture(sourceType: .photoLibrary)
+        }
+        alert.addAction(libraryAction)
+        let photosAction = UIAlertAction(title: "Álbum de fotos", style: .default) { (action: UIAlertAction) in
+            self.selectPicture(sourceType: .savedPhotosAlbum)
+        }
+        alert.addAction(photosAction)
+        let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func selectPicture(sourceType: UIImagePickerControllerSourceType){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = self
+        imagePicker.navigationBar.tintColor = UIColor(named:"main")
+        present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func addEditGame(_ sender: UIButton) {
@@ -71,7 +118,12 @@ class AddEditViewController: UIViewController {
         game.title = tfTitle.text
         game.releaseDate = dpReleaseDAte.date
         
-        
+        if !tfConsole.text!.isEmpty {
+            let console = consolesManager.consoles[pickerView.selectedRow(inComponent: 0)]
+            game.console = console
+            
+        }
+        game.cover = ivCover.image
         do{
             try context.save()
         } catch {
@@ -112,4 +164,13 @@ extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
         return console.name
     }
     
+}
+
+extension AddEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        ivCover.image = image
+        btCover.setTitle(nil, for: .normal)
+        dismiss(animated: true, completion: nil)
+    }
 }

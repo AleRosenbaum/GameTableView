@@ -25,6 +25,17 @@ class GamesTableViewController: UITableViewController {
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier! == "gameSegue" {
+            let vc = segue.destination as! GameViewController
+            
+            if let games = fetchedResultController.fetchedObjects{
+                vc.game = games[tableView.indexPathForSelectedRow!.row]
+            }
+            
+        }
+    }
+    
     
     func loadGames(){
         let fetchRequest: NSFetchRequest<Game> = Game.fetchRequest()
@@ -88,17 +99,20 @@ class GamesTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            guard let game = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
+            context.delete(game)
+            
+            do{
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -131,6 +145,9 @@ extension GamesTableViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
             break
         default:
             tableView.reloadData()
