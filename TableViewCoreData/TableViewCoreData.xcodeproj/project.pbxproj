@@ -19,6 +19,7 @@
 		03CA32C621348570002348E7 /* AddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA32C521348570002348E7 /* AddEditViewController.swift */; };
 		03CA32C82134862D002348E7 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA32C72134862D002348E7 /* GameTableViewCell.swift */; };
 		03CA32CA21349299002348E7 /* ViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA32C921349299002348E7 /* ViewController+CoreData.swift */; };
+		03CA32CC2135C1BD002348E7 /* ConsolesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA32CB2135C1BD002348E7 /* ConsolesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		03CA32C521348570002348E7 /* AddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewController.swift; sourceTree = "<group>"; };
 		03CA32C72134862D002348E7 /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		03CA32C921349299002348E7 /* ViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CoreData.swift"; sourceTree = "<group>"; };
+		03CA32CB2135C1BD002348E7 /* ConsolesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				03CA32C921349299002348E7 /* ViewController+CoreData.swift */,
 				03CA32C72134862D002348E7 /* GameTableViewCell.swift */,
 				03CA32C1213484F7002348E7 /* ConsolesTableViewController.swift */,
+				03CA32CB2135C1BD002348E7 /* ConsolesManager.swift */,
 				03CA32BF213484D6002348E7 /* GamesTableViewController.swift */,
 				03BD100A21345E6300F70A91 /* Assets.xcassets */,
 				03BD100C21345E6300F70A91 /* LaunchScreen.storyboard */,
@@ -163,6 +166,7 @@
 				03BD100921345E6100F70A91 /* TableViewCoreData.xcdatamodeld in Sources */,
 				03CA32CA21349299002348E7 /* ViewController+CoreData.swift in Sources */,
 				03CA32C42134854D002348E7 /* GameViewController.swift in Sources */,
+				03CA32CC2135C1BD002348E7 /* ConsolesManager.swift in Sources */,
 				03CA32C2213484F7002348E7 /* ConsolesTableViewController.swift in Sources */,
 				03CA32C82134862D002348E7 /* GameTableViewCell.swift in Sources */,
 			);

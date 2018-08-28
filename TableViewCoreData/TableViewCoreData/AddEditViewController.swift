@@ -18,13 +18,42 @@ class AddEditViewController: UIViewController {
     @IBOutlet weak var ivCover: UIImageView!
     
     var game: Game!
-    
-    
+    lazy var pickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.backgroundColor = .white
+        return pickerView
+    }()
+    var consolesManager = ConsolesManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+        toolbar.tintColor = UIColor(named: "main")
+        
+        let btCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+        let btDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let btFlexibleSpace = UIBarButtonItem  (barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolbar.items = [btCancel, btFlexibleSpace, btDone]
+        
+        tfConsole.inputView = pickerView
+        tfConsole.inputAccessoryView = toolbar
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func cancel() {
+        tfConsole.resignFirstResponder()
+    }
+    
+    @objc func done() {
+        
+        tfConsole.text = consolesManager.consoles[pickerView.selectedRow(inComponent: 0)].name
+        
+        
+        cancel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +80,10 @@ class AddEditViewController: UIViewController {
         
         navigationController?.popViewController(animated: true)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        consolesManager.loadConsole(with: context)
+    }
     
     /*
     // MARK: - Navigation
@@ -62,4 +95,21 @@ class AddEditViewController: UIViewController {
     }
     */
 
+}
+
+
+extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return consolesManager.consoles.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let console = consolesManager.consoles[row]
+        return console.name
+    }
+    
 }
